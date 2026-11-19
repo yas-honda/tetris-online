@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>テトリス・オンライン</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="app">
+    <header><div class="brand">▦ <span>BLOCK BATTLE</span></div><div class="status" id="connection">接続中…</div></header>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">REAL-TIME MULTIPLAYER</p>
+        <h1>テトリス・<em>オンライン</em></h1>
+        <p class="sub">友達とルームコードを共有して、リアルタイム対戦！</p>
+      </div>
+    </section>
+
+    <section class="lobby panel" id="lobby">
+      <div class="lobby-grid">
+        <label>プレイヤー名<input id="playerName" maxlength="16" value="Player"></label>
+        <button class="primary" id="createRoom">ルームを作成</button>
+        <div class="join">
+          <label>ルームコード<input id="roomCode" maxlength="5" placeholder="ABCDE"></label>
+          <button id="joinRoom">参加する</button>
+        </div>
+      </div>
+      <p class="hint" id="lobbyMessage">ルームを作成するか、友達から届いたコードを入力してください。</p>
+    </section>
+
+    <section class="room panel hidden" id="roomPanel">
+      <div class="room-head">
+        <div><span class="eyebrow">ROOM CODE</span><strong id="roomCodeDisplay">-----</strong></div>
+        <button class="copy" id="copyCode">コードをコピー</button>
+      </div>
+      <div class="players" id="players"></div>
+      <div class="room-actions">
+        <button class="primary" id="readyButton" disabled>準備OK</button>
+        <button class="quiet" id="leaveButton">退出</button>
+      </div>
+      <p class="hint" id="roomMessage">2人そろったら、両方が「準備OK」を押してください。</p>
+    </section>
+
+    <section class="game hidden" id="gamePanel">
+      <div class="board-wrap panel">
+        <div class="board-title"><span>YOUR BOARD</span><b id="myScore">0</b></div>
+        <canvas id="board" width="300" height="600"></canvas>
+        <div class="mobile-controls">
+          <button data-key="ArrowLeft">◀</button><button data-key="ArrowDown">▼</button>
+          <button data-key="ArrowUp">↻</button><button data-key="ArrowRight">▶</button>
+          <button data-key=" ">DROP</button>
+        </div>
+      </div>
+      <div class="opponent-wrap panel">
+        <div class="board-title"><span>OPPONENT</span><b id="opponentScore">—</b></div>
+        <canvas id="opponentBoard" width="200" height="400"></canvas>
+        <div class="opponent-status" id="opponentStatus">対戦相手を待っています</div>
+        <div class="help">
+          <h3>操作方法</h3>
+          <p>← →　左右移動</p><p>↓　ソフトドロップ</p><p>↑ / X　回転</p><p>Space　ハードドロップ</p><p>ラインを消すと相手にお邪魔ブロック！</p>
+        </div>
+      </div>
+    </section>
+    <div class="toast hidden" id="toast"></div>
+    <footer>BLOCK BATTLE <span>•</span> 友達と気軽にオンライン対戦</footer>
+  </main>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/game.js"></script>
+</body>
+</html>
